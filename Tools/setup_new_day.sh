@@ -14,7 +14,8 @@ url=https://adventofcode.com/${y}/day/${x}/input
 
 #if one char add 0 to front to maintain file order
 len=`expr length "${x}"`
-if [[ ${len}=1 ]];
+echo ${len}
+if [[ ${len} = 1 ]] 
 then 
 num="0${x}"
 else
