@@ -11,7 +11,7 @@
   </tr>
   <tr>
     <td>2021</td>
-    <td>[Python](https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python)</td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a></td>
     <td>11</td>
   </tr>
   <tr>
