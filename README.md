@@ -1,3 +1,6 @@
+# AdventOfCode
+My personal soloutions to AOC, used as a way to develop my programming skillset and learn new languages.
+
 <table>
   <tr>
     <th>AOC Year</th>
