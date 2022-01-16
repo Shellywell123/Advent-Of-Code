@@ -6,7 +6,7 @@
   </tr>
   <tr>
     <td>2020</td>
-    <td>Python</td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2020/Python">Python</a></td>
     <td>10</td>
   </tr>
   <tr>
@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <td>2021</td>
-    <td>C++</td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">C++</a></td>
     <td>3</td>
   </tr>
 </table>
