@@ -1,5 +1,5 @@
 # AdventOfCode
-My personal soloutions to AOC, used as a way to develop my programming skillset and learn new languages.
+My personal solutions to [AOC](https://adventofcode.com/), used as a way to develop my programming skillset and learn new languages.
 
 <table>
   <tr>
