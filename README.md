@@ -7,18 +7,18 @@ My personal solutions to [AOC](https://adventofcode.com/), used as a way to deve
     <th>Soloutions</th>
     <th>Days Completed</th>
   </tr>
-  <tr>
-    <td>2020</td>
+  <tr>https://adventofcode.com/2021/day/10/answer
+    <td><a href="https://adventofcode.com/2020">2020</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2020/Python">Python</a></td>
     <td>10/25</td>
   </tr>
   <tr>
-    <td>2021</td>
+    <td><a href="https://adventofcode.com/2021">2021</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a></td>
     <td>11/25</td>
   </tr>
   <tr>
-    <td>2021</td>
+    <td><a href="https://adventofcode.com/2021">2021</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">C++</a></td>
     <td>3/25</td>
   </tr>
