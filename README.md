@@ -14,7 +14,7 @@ My personal solutions to [AOC](https://adventofcode.com/), used as a way to deve
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2021">2021</a></td>
-    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a>,<a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">C++</a></td>
-    <td>11/25,3/25</td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a>, <a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">C++</a></td>
+    <td>11/25, 3/25</td>
   </tr>
 </table>
