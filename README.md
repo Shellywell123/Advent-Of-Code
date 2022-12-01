@@ -7,7 +7,7 @@ My personal solutions to [AOC](https://adventofcode.com/), used as a way to deve
     <th>Soloutions</th>
     <th>Days Completed</th>
   </tr>
-  <tr>https://adventofcode.com/2021/day/10/answer
+  <tr>
     <td><a href="https://adventofcode.com/2020">2020</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2020/Python">Python</a></td>
     <td>10/25</td>
