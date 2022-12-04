@@ -19,7 +19,7 @@ My personal solutions to [AOC](https://adventofcode.com/), used as a way to deve
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2022">2022</a></td>
-    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a></td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/Python">Python</a></td>
     <td>X/25</td>
   </tr>
 </table>
