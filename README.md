@@ -15,11 +15,11 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
   <tr>
     <td><a href="https://adventofcode.com/2021">2021</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">Python</a>, <a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">C++</a></td>
-    <td>11/25, 3/25</td>
+    <td>11/25, 03/25</td>
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2022">2022</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/Python">Python</a>, <a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2022/C%23">C#</a></td>
-    <td>X/25, X/25</td>
+    <td>XX/25, XX/25</td>
   </tr>
 </table>
