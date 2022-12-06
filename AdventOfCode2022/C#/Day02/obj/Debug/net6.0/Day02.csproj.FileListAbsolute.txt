@@ -1,0 +1,15 @@
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\bin\Debug\net6.0\Day02.exe
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\bin\Debug\net6.0\Day02.deps.json
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\bin\Debug\net6.0\Day02.runtimeconfig.json
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\bin\Debug\net6.0\Day02.dll
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\bin\Debug\net6.0\Day02.pdb
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.csproj.AssemblyReference.cache
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.AssemblyInfoInputs.cache
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.AssemblyInfo.cs
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.csproj.CoreCompileInputs.cache
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.dll
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\refint\Day02.dll
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.pdb
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\Day02.genruntimeconfig.cache
+C:\Users\benja\Programming\Advent-Of-Code\AdventOfCode2022\C#\Day02\obj\Debug\net6.0\ref\Day02.dll
