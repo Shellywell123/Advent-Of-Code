@@ -1,5 +1,5 @@
 # AdventOfCode
-My personal solutions to [AOC](https://adventofcode.com/), used as a way to develop my programming skillset and learn new languages.
+My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year, used as a way to develop my programming skillset and practice different languages.
 
 <table>
   <tr>
@@ -19,7 +19,7 @@ My personal solutions to [AOC](https://adventofcode.com/), used as a way to deve
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2022">2022</a></td>
-    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/Python">Python</a></td>
-    <td>X/25</td>
+    <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/Python">Python</a>, <a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/C#">C#</a></td>
+    <td>X/25, X/25</td>
   </tr>
 </table>
