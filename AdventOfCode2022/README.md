@@ -1,2 +1,2 @@
-# AdventOfCode2020
-My solutions to [AdventOfCode2020 Puzzles](https://adventofcode.com/2022)
+# AdventOfCode2022
+My solutions to [AdventOfCode2022 Puzzles](https://adventofcode.com/2022)
