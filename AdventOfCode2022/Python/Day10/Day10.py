@@ -106,7 +106,7 @@ def main():
     testfile = "tests.txt"
     inputfile = "inputs.txt"
 
-    print("Advent-Of-Code 2022 - Day08")
+    print("Advent-Of-Code 2022 - Day10")
 
     print(f'"{testfile}": Answer to Part 1 = {Part1(testfile)}')
     print(f'"{testfile}": Answer to Part 2 = {Part2(testfile)}')
