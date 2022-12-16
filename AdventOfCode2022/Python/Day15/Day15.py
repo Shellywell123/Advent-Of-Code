@@ -74,61 +74,130 @@ def Part1(filename, row_to_check, printing = False):
         xs.append(r[1])
     return max(xs)-min(xs)
 
+def Part2_Row_Check(filename, row_to_check, printing = False):
+    """
+    Solutions to Part 2
+    """
+    sensors, beacons = ParseData(filename)
+
+    #for row_to_check in range(0,max_coord+1):
+
+    ranges = []
+
+    for i in range(0,len(sensors)):        
+
+        sensor = sensors[i]
+        beacon = beacons[i]
+
+        manhatten_distance = abs(sensor[0] - beacon[0]) + abs(sensor[1] - beacon[1])
+
+        if printing:
+            stri = str(i+1)
+            if i < 9:
+                stri = '0'+str(i+1)
+            print(f'scanning sensor {stri} of {len(sensors)} - dist = {manhatten_distance}')
+
+        # if row to check is relevant
+        if (row_to_check >= sensor[1]-manhatten_distance and row_to_check <= sensor[1]+manhatten_distance):
+
+            y = abs(sensor[1] - row_to_check)
+            # find first x ind below man hat dist
+            for x in range(sensor[0]-manhatten_distance, sensor[0]+manhatten_distance):
+                if ((abs(sensor[0] - x) + y) <= manhatten_distance):
+                    x_start = x
+                    break
+            
+            # find last x ind below man han dist
+            for x in range(sensor[0]+manhatten_distance, sensor[0]-manhatten_distance,-1):
+                if ((abs(sensor[0] - x) + y) <= manhatten_distance):
+                    x_end = x
+                    break
+
+            ranges.append([x_start,x_end])    
+
+    ranges.sort()
+        
+    for r in range(0,len(ranges)-1):
+        if ranges[r][1] + 2 == ranges[r+1][0]:
+
+            find = ranges[r][1] + 1
+            nested = False
+            for range_check in ranges:
+                if (range_check[0] <= find) and (find <= range_check[1]): 
+                    nested = True
+                    break
+                
+            if nested == False:
+                return (find * 4000000) + row_to_check  
+    return False
+
 def Part2(filename, max_coord, printing = False):
     """
     Solutions to Part 2
     """
     sensors, beacons = ParseData(filename)
 
-    for row_to_check in range(0,max_coord+1):
+    a1_list = []
+    a2_list = []
+    b1_list = []
+    b2_list = []
 
-        ranges = []
+    a_list = []
+    b_list = []
 
-        for i in range(0,len(sensors)):        
+    for i in range(0,len(sensors)):        
 
-            sensor = sensors[i]
-            beacon = beacons[i]
+        sensor = sensors[i]
+        beacon = beacons[i]
 
-            manhatten_distance = abs(sensor[0] - beacon[0]) + abs(sensor[1] - beacon[1])
+        manhatten_distance = abs(sensor[0] - beacon[0]) + abs(sensor[1] - beacon[1])
+        r = manhatten_distance
 
-            if printing:
-                stri = str(i+1)
-                if i < 9:
-                    stri = '0'+str(i+1)
-                print(f'scanning sensor {stri} of {len(sensors)} - dist = {manhatten_distance}')
+        x = sensor[0]
+        y = sensor[1]
 
-            # if row to check is relevant
-            if (row_to_check >= sensor[1]-manhatten_distance and row_to_check <= sensor[1]+manhatten_distance):
+        a1 = y - x + (r + 1)
+        a2 = y - x - (r + 1)
+        b1 = y + x + (r + 1) 
+        b2 = y + x - (r + 1)
 
-                y = abs(sensor[1] - row_to_check)
-                # find first x ind below man hat dist
-                for x in range(sensor[0]-manhatten_distance, sensor[0]+manhatten_distance):
-                    if ((abs(sensor[0] - x) + y) <= manhatten_distance):
-                        x_start = x
-                        break
-                
-                # find last x ind below man han dist
-                for x in range(sensor[0]+manhatten_distance, sensor[0]-manhatten_distance,-1):
-                    if ((abs(sensor[0] - x) + y) <= manhatten_distance):
-                        x_end = x
-                        break
+        a1_list.append(a1)
+        a2_list.append(a2)
 
-                ranges.append([x_start,x_end])    
+        b1_list.append(b1)
+        b2_list.append(b2)    
+  
+    # reduce by parallel intersections
+    for a in a1_list:
+        if a in a2_list:
+            a_list.append(a)
+    
+    for b in b1_list:
+        if b in b2_list:
+            b_list.append(b)
 
-        ranges.sort()
-            
-        for r in range(0,len(ranges)-1):
-            if ranges[r][1] + 2 == ranges[r+1][0]:
+    rows_to_check = []
 
-                find = ranges[r][1] + 1
-                nested = False
-                for range_check in ranges:
-                    if (range_check[0] <= find) and (find <= range_check[1]): 
-                        nested = True
-                        break
-                    
-                if nested == False:
-                    return (find * 4000000) + row_to_check  
+    for a in a_list:
+        for b in b_list:
+
+            xi = (b - a )//2
+            yi = (b + a )//2
+
+            if ((0 >= xi) or (xi > max_coord)
+                or (0 >= yi) or (yi > max_coord)):
+                continue
+
+            rows_to_check.append(yi)
+
+    if len(rows_to_check) == 1:
+        return (xi * 4000000) + yi
+
+    for row in rows_to_check:
+        ans = Part2_Row_Check(filename, row, printing)
+        if type(ans) == int:
+            return ans
+
     return 0
 
 def main():
