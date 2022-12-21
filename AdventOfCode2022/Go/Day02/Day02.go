@@ -4,90 +4,60 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
-	"strings"
 )
 
-func Part1(filename string) uint64 {
-	var totals []uint64
-	var currentBag uint64
-	var ans uint64
+func Part1(filename string) int {
+	var totals int
+	var index int
 	var line string
+
+	outcomes := [9]string{"B X", "C Y", "A Z", "A X", "B Y", "C Z", "C X", "A Y", "B Z"}
 
 	file, _ := os.Open(filename)
 	fscanner := bufio.NewScanner(file)
 
-	currentBag = 0
+	totals = 0
 	for fscanner.Scan() {
 		line = fscanner.Text()
 
-		if strings.TrimSpace(line) == "" {
-			totals = append(totals, currentBag)
-			currentBag = 0
-			continue
-		} else {
-			i, _ := strconv.ParseUint(line, 10, 64)
-			currentBag += i
+		// get index from list
+		for i := 0; i < len(outcomes); i++ {
+			if outcomes[i] == line {
+				index = i + 1
+				break
+			}
 		}
+		totals += index
 	}
 
-	ans = 0
-	for j := 0; j < len(totals); j++ {
-		if ans < totals[j] {
-			ans = totals[j]
-		}
-	}
-
-	return ans
+	return totals
 }
 
-func Part2(filename string) uint64 {
-	var totals []uint64
-	var currentBag uint64
+func Part2(filename string) int {
+	var totals int
+	var index int
 	var line string
+
+	outcomes := [9]string{"B X", "C X", "A X", "A Y", "B Y", "C Y", "C Z", "A Z", "B Z"}
 
 	file, _ := os.Open(filename)
 	fscanner := bufio.NewScanner(file)
 
-	currentBag = 0
+	totals = 0
 	for fscanner.Scan() {
 		line = fscanner.Text()
 
-		if strings.TrimSpace(line) == "" {
-			totals = append(totals, currentBag)
-			currentBag = 0
-			continue
-		} else {
-			i, _ := strconv.ParseUint(line, 10, 64)
-			currentBag += i
+		// get index from list
+		for i := 0; i < len(outcomes); i++ {
+			if outcomes[i] == line {
+				index = i + 1
+				break
+			}
 		}
+		totals += index
 	}
 
-	var ans1 uint64
-	ans1 = 0
-	for j := 0; j < len(totals); j++ {
-		if ans1 < totals[j] {
-			ans1 = totals[j]
-		}
-	}
-
-	var ans2 uint64
-	ans2 = 0
-	for j := 0; j < len(totals); j++ {
-		if ans2 < totals[j] && totals[j] < ans1 {
-			ans2 = totals[j]
-		}
-	}
-
-	var ans3 uint64
-	ans3 = 0
-	for j := 0; j < len(totals); j++ {
-		if ans3 < totals[j] && totals[j] < ans2 {
-			ans3 = totals[j]
-		}
-	}
-
-	return ans1 + ans2 + ans3
+	return totals
 }
 
 func main() {
