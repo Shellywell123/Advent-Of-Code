@@ -1,7 +1,8 @@
-UP    = 0
+# macros
+RIGHT = 0
 DOWN  = 1
 LEFT  = 2
-RIGHT = 3
+UP    = 3
 VOID  = ' '
 SPACE = '.'
 WALL  = '#'
@@ -14,17 +15,27 @@ def ParseData(file):
         data = f.read().split('\n')
     
     map = []
+    map_width = 0
     for y in range(0,len(data)):
         row = data[y]
         if row.strip() == '':
             instructions_raw = data[y+1]
             break        
-        map.append(row)
+        map.append(list(row))
+        if len(list(row)) > map_width:
+            map_width = len(row)+1
 
     instructions = instructions_raw.replace('L',',L,').replace('R',',R,').split(',')
     for i in range(0,len(instructions)-1):
         if instructions[i] not in ['L','R']:
             instructions[i] = int(instructions[i])
+
+    # fill empty spaces
+    for m in range(0,len(map)):
+        new_row = map[m]
+        while len(new_row) < map_width:
+            new_row.append(' ')
+        map[m] = new_row
 
     return map,instructions
 
@@ -33,11 +44,7 @@ def Part1(filename, printing = False):
     Solutions to Part 1
     """
     map,instructions = ParseData(filename)
-
-    if printing:
-        print(instructions)
-        for row in map:
-            print(row)
+    map_copy = map[:]
 
     # find starting coord
     for x in range(0,len(map[0])):
@@ -45,57 +52,131 @@ def Part1(filename, printing = False):
             start_coord = [x,0]
             break
     
-    # intisialise stuff
-    #start facing right
-    facing = RIGHT
+    # intisialise stuff    
+    facing = RIGHT #start facing right
     coord = start_coord
+    next_coord = start_coord
 
     for instruction in instructions:
+
+        if printing:
+            print('instruction! = ',instruction)
 
         # turning
         if type(instruction) == str:
             if ((facing == UP    and instruction == 'L') or (facing == DOWN  and instruction == 'R')):
                 facing = LEFT
+                continue
             if ((facing == LEFT  and instruction == 'L') or (facing == RIGHT and instruction == 'R')):
                 facing = DOWN
+                continue
             if ((facing == DOWN  and instruction == 'L') or (facing == UP    and instruction == 'R')):
                 facing = RIGHT
+                continue
             if ((facing == RIGHT and instruction == 'L') or (facing == LEFT  and instruction == 'R')):
-                facing = UP            
+                facing = UP     
+                continue
 
         # moving
         if type(instruction) == int:
         
             steps = 0
-
             while (steps < instruction):
 
                 if facing == UP:
-                    next_coord = start_coord[0],[start_coord[1]-1]
+                    print('u')
+                    map_copy[coord[1]][coord[0]] = '^'
+                    next_coord = [coord[0],coord[1]-1]
                     # check for map boundaries and wrap arounds
-                    if (next_coord[1] < len(map)-1) or (0 > next_coord[1]) or (map[next_coord[1],next_coord[0]] == VOID):
+                    if (next_coord[1] < 0) or (map[next_coord[1]][next_coord[0]] == VOID):
                         # then wrap around
-                        for ny in range(len(map),0,-1):
+                        for ny in range(len(map)-1,-1,-1):
+                            print(ny,next_coord)
                             if map[ny][next_coord[0]] == SPACE:
                                 next_coord = [next_coord[0],ny]
                                 break
-                            # need to think about wrap arounds to walls
+                            if map[ny][next_coord[0]] == WALL:
+                                hit_wall = True
+                                break
                 
                 if facing == DOWN:
-                    next_coord = start_coord[0],[start_coord[1]+1]
+                    print('d')
+                    map_copy[coord[1]][coord[0]] = 'v'
+                    next_coord = [coord[0],coord[1]+1]
+                    hit_wall = False
+                    # check for map boundaries and wrap arounds
+                    if (next_coord[1] > len(map)-1) or (map[next_coord[1]][next_coord[0]] == VOID):
+                        # then wrap around
+                        for ny in range(0,len(map)-1):
+                            if map[ny][next_coord[0]] == SPACE:
+                                next_coord = [next_coord[0],ny]
+                                break
+                            if map[ny][next_coord[0]] == WALL:
+                                hit_wall = True
+                                break
 
                 if facing == LEFT:
-                    next_coord = start_coord[0]-1,[start_coord[1]]
+                    print('l')
+                    map_copy[coord[1]][coord[0]] = '<'
+                    next_coord = [coord[0]-1,coord[1]]
+                    hit_wall = False
+                    # check for map boundaries and wrap arounds
+                    if (next_coord[0] < 0) or (map[next_coord[1]][next_coord[0]] == VOID):
+                        # then wrap around
+                        for nx in range(len(map[0])-1,-1,-1):
+                            print(nx, instruction,len(map),map[next_coord[1]][nx])
+                            if map[next_coord[1]][nx] == SPACE:
+                                next_coord = [nx,next_coord[1]]
+                                break
+                            if map[next_coord[1]][nx] == WALL:
+                                hit_wall = True
+                                break
                 
                 if facing == RIGHT:
-                    next_coord = start_coord[0]+1,[start_coord[1]]
-                
-                # if map[next_coord[1]][next_coord[0]] == WALL:
-                #     # go to next instructoin
-                #     break
-                steps += 1
+                    map_copy[coord[1]][coord[0]] = '>'
+                    next_coord = [coord[0]+1,coord[1]]
+                    hit_wall = False
+                    # check for map boundaries and wrap arounds
+                    if (next_coord[0] > len(map[0])-1) or (map[next_coord[1]][next_coord[0]] == VOID):
+                        # then wrap around
+                        for nx in range(0,len(map[0])-1):
+                            print(nx, instruction,len(map),map[next_coord[1]][nx])
+                            if map[next_coord[1]][nx] == SPACE:
+                                next_coord = [nx,next_coord[1]]
+                                break
+                            if map[next_coord[1]][nx] == WALL:
+                                hit_wall = True
+                                break
 
-    return 0
+                if hit_wall or map[next_coord[1]][next_coord[0]] == WALL:
+                    print('HIT WALL')
+                    # go to next instruction
+                    break
+
+                if printing:
+                    print(instructions)
+                    print(f'\nsteps = {steps}\ninstrcution = {instruction}\n')
+                    for row in map:
+                        rowstr = ''
+                        for r in row:
+                            rowstr += r
+                        print(rowstr)
+
+                coord = next_coord
+                steps += 1
+    
+    map_copy[coord[1]][coord[0]] = 'X'
+    if printing:
+        print(instructions)
+        print(f'\nsteps = {steps}\ninstrcution = {instruction}\n')
+        for row in map:
+            rowstr = ''
+            for r in row:
+                rowstr += r
+            print(rowstr)
+    
+    print(coord,facing)
+    return (1000 * (coord[1]+1)) + (4 * (coord[0]+1)) + facing
 
 def Part2(filename, printing = False):
     """
@@ -115,10 +196,10 @@ def main():
     print(f'Tests : Answer to Part 1 = {Part1(testfile, printing = True)}')    
     # print(f'Tests : Answer to Part 2 = {Part2(testfile, printing = False)}\n')
 
-    # assert(Part1(testfile) == 110)
+    assert(Part1(testfile) == 6032)
     # assert(Part2(testfile) == 20)
 
-    # print(f'Inputs: Answer to Part 1 = {Part1(inputfile, printing = False)}')
+    #print(f'Inputs: Answer to Part 1 = {Part1(inputfile, printing = False)}')
     # print(f'Inputs: Answer to Part 2 = {Part2(inputfile, printing = False)}')
 
 if __name__ == "__main__":
