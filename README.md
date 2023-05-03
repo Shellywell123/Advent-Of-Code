@@ -12,11 +12,17 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
   <tr>
     <td><a href="https://adventofcode.com/2020">2020</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2020/Python">10/25</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
+  
   <tr>
     <td><a href="https://adventofcode.com/2021">2021</a></td>
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">11/25</a> 
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">03/25</a></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2022">2022</a></td>
