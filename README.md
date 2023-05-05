@@ -14,7 +14,7 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2020/Python">10/25</a></td>
     <td></td>
     <td></td>
-    <td></td>
+    <td><a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2020/Go">02/25</a></td>
   </tr>
   
   <tr>
@@ -22,7 +22,7 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/Python">11/25</a> 
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2021/C++">03/25</a></td>
     <td></td>
-    <td></td>
+    <td><a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2020/Go">02/25</a></td>
   </tr>
   <tr>
     <td><a href="https://adventofcode.com/2022">2022</a></td>
