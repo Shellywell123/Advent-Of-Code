@@ -130,7 +130,7 @@ func main() {
 	testfile := "tests.txt"
 	inputfile := "inputs.txt"
 
-	fmt.Println("Advent-Of-Code 2022 - Day06")
+	fmt.Println("Advent-Of-Code 2022 - Day08")
 	fmt.Printf("Tests : Answer to Part 1 = %v\n", Part1(testfile))
 	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1(inputfile))
 	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2(testfile))
