@@ -3,10 +3,21 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
 )
+
+type coordinate struct {
+	x int
+	y int
+}
+
+type knot struct {
+	head coordinate
+	tail coordinate
+}
 
 func Parse(filename string) []map[string]string {
 
@@ -26,78 +37,25 @@ func Parse(filename string) []map[string]string {
 	return data
 }
 
-func Catchup(headPosition []int, tailPosition []int) []int {
+func Catchup(headPosition coordinate, tailPosition coordinate, lastDirection string) coordinate {
 	newTailPosition := tailPosition
 
-	// head = centre of clock
-	// tail = number on clock
+	if math.Abs(float64(headPosition.x)-float64(tailPosition.x)) > 1 || math.Abs(float64(headPosition.y)-float64(tailPosition.y)) > 1 {
 
-	// 1
-	if headPosition[0]+1 == tailPosition[0] && headPosition[1]-2 == tailPosition[1] {
-		newTailPosition[1]--
-		newTailPosition[1]++
-	}
-
-	// 2
-	if headPosition[0]+2 == tailPosition[0] && headPosition[1]-1 == tailPosition[1] {
-		newTailPosition[0]--
-		newTailPosition[1]++
-	}
-
-	// 3
-	if headPosition[0]+2 == tailPosition[0] && headPosition[1] == tailPosition[1] {
-		newTailPosition[0]--
-	}
-
-	// 4
-	if headPosition[0]+2 == tailPosition[0] && headPosition[1]+1 == tailPosition[1] {
-		newTailPosition[0]--
-		newTailPosition[1]--
-	}
-
-	// 5
-	if headPosition[0]+1 == tailPosition[0] && headPosition[1]+2 == tailPosition[1] {
-		newTailPosition[0]--
-		newTailPosition[1]--
-	}
-
-	// 6
-	if headPosition[0] == tailPosition[0] && headPosition[1]+2 == tailPosition[1] {
-		newTailPosition[0]--
-	}
-
-	// 7
-	if headPosition[0]-1 == tailPosition[0] && headPosition[1]+2 == tailPosition[1] {
-		newTailPosition[0]++
-		newTailPosition[1]--
-	}
-
-	// 8
-	if headPosition[0]-2 == tailPosition[0] && headPosition[1]+1 == tailPosition[1] {
-		newTailPosition[0]++
-		newTailPosition[1]--
-	}
-
-	// 9
-	if headPosition[0]-2 == tailPosition[0] && headPosition[1] == tailPosition[1] {
-		newTailPosition[0]++
-	}
-
-	// 10
-	if headPosition[0]-2 == tailPosition[0] && headPosition[1]-1 == tailPosition[1] {
-		newTailPosition[0]++
-		newTailPosition[1]++
-	}
-
-	// 11
-	if headPosition[0]-1 == tailPosition[0] && headPosition[1]-2 == tailPosition[1] {
-		newTailPosition[0]++
-		newTailPosition[1]++
-	}
-
-	// 12
-	if headPosition[0] == tailPosition[0] && headPosition[1] -2== tailPosition[1] {
-		newTailPosition[1]++
+		switch lastDirection {
+		case "U":
+			newTailPosition.x = headPosition.x
+			newTailPosition.y = headPosition.y + 1
+		case "D":
+			newTailPosition.x = headPosition.x
+			newTailPosition.y = headPosition.y - 1
+		case "L":
+			newTailPosition.x = headPosition.x + 1
+			newTailPosition.y = headPosition.y
+		case "R":
+			newTailPosition.x = headPosition.x - 1
+			newTailPosition.y = headPosition.y
+		}
 	}
 
 	return newTailPosition
@@ -107,10 +65,12 @@ func Part1(filename string) int {
 
 	data := Parse(filename)
 
-	tailPositions := map[string]string{fmt.Sprintf("%v-%v", 0, 99): ""}
+	tailPositions := map[string]interface{}{}
 
-	currentHeadPosition := []int{0, 99}
-	currentTailPosition := []int{0, 99}
+
+    // initialize head position as 0,0
+	currentHeadPosition := coordinate{0, 0}
+	currentTailPosition := currentHeadPosition
 
 	// draw path
 	for _, move := range data {
@@ -118,55 +78,94 @@ func Part1(filename string) int {
 		direction, magnitudeString := move["direction"], move["magnitude"]
 		magnitude, _ := strconv.Atoi(magnitudeString)
 
-		// fmt.Println(direction, magnitude)
+		for i := 0; i < magnitude; i++ {
 
-		switch direction {
-		case "U":
-			for i := 0; i < magnitude; i++ {
-				// fmt.Print(currentHeadPosition,currentTailPosition,"\n")
-				currentHeadPosition[1]--
-				currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
-				tailPositions[fmt.Sprintf("%v-%v", currentTailPosition[0], currentTailPosition[1])] = ""
+			// move head along
+			switch direction {
+			case "U":
+				currentHeadPosition.y--
+			case "D":
+				currentHeadPosition.y++
+			case "L":
+				currentHeadPosition.x--
+			case "R":
+				currentHeadPosition.x++
 			}
-		case "D":
-			for i := 0; i < magnitude; i++ {
-				// fmt.Print(currentHeadPosition,currentTailPosition,"\n")
-				currentHeadPosition[1]++
-				currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
-				tailPositions[fmt.Sprintf("%v-%v", currentTailPosition[0], currentTailPosition[1])] = ""
-			}
-		case "L":
-			for i := 0; i < magnitude; i++ {
-				// fmt.Print(currentHeadPosition,currentTailPosition,"\n")
-				currentHeadPosition[0]--
-				currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
-				tailPositions[fmt.Sprintf("%v-%v", currentTailPosition[0], currentTailPosition[1])] = ""
-			}
-		case "R":
-			for i := 0; i < magnitude; i++ {
-				// fmt.Print(currentHeadPosition,currentTailPosition,"\n")
-				currentHeadPosition[0]++
-				currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
-				tailPositions[fmt.Sprintf("%v-%v", currentTailPosition[0], currentTailPosition[1])] = ""
-			}
+
+			// move tail along
+			currentTailPosition = Catchup(currentHeadPosition, currentTailPosition, direction)
+
+			// add tail position to map
+			tailPositions[fmt.Sprintf("%v,%v", currentTailPosition.x, currentTailPosition.y)] = ""
 		}
 	}
 
-	// for k, v := range tailPositions {
-	// 	fmt.Println(k, v,)
-	// }
+	return len(tailPositions)
+}
 
+func Part2(filename string) int {
+
+	data := Parse(filename)
+
+	tailPositions := map[string]interface{}{}
+
+	// initialize knot positions as 0,0
+	knots := []knot{}
+	for i := 0; i < 10; i++ {
+		currentHeadPosition := coordinate{0, 0}
+		currentTailPosition := currentHeadPosition
+		knots = append(knots, knot{head: currentHeadPosition, tail: currentTailPosition})
+	}
+
+	// draw path
+	for _, move := range data {
+
+		direction, magnitudeString := move["direction"], move["magnitude"]
+		magnitude, _ := strconv.Atoi(magnitudeString)
+
+		fmt.Print(direction, " ", magnitude, "\n")
+
+		for i := 0; i < magnitude; i++ {
+
+			// move head along
+			switch direction {
+			case "U":
+				knots[0].head.y--
+			case "D":
+				knots[0].head.y++
+			case "L":
+				knots[0].head.x--
+			case "R":
+				knots[0].head.x++
+			}
+
+			// move tails along
+			for k := 0; k < len(knots); k++ {
+				if k != 0 {
+					knots[k].tail = Catchup(knots[k-1].tail, knots[k].tail, direction)
+				} else {
+					knots[k].tail = Catchup(knots[k].head, knots[k].tail, direction)
+				}
+			}
+
+			// add end tail position to map
+			tailPositions[fmt.Sprintf("%v,%v", knots[len(knots)-1].tail.x, knots[len(knots)-1].tail.y)] = ""
+		}
+	}
+
+	fmt.Print(tailPositions)
 	return len(tailPositions)
 }
 
 func main() {
 
 	testfile := "tests.txt"
+	testfile2 := "tests2.txt"
 	inputfile := "inputs.txt"
 
 	fmt.Println("Advent-Of-Code 2022 - Day09")
 	fmt.Printf("Tests : Answer to Part 1 = %v\n", Part1(testfile))
 	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1(inputfile))
-	// fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2(testfile))
+	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2(testfile2))
 	// fmt.Printf("Inputs: Answer to Part 2 = %v\n", Part2(inputfile))
 }
