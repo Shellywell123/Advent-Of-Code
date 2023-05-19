@@ -178,7 +178,7 @@ func Part1(filename string) int {
 			tailPositions[fmt.Sprintf("%v,%v", currentTailPosition.x, currentTailPosition.y)] = ""
 		}
 	}
-	// PrintTailPositions(tailPositions)
+
 	return len(tailPositions)
 }
 
@@ -234,7 +234,6 @@ func Part2(filename string) int {
 
 			// PrintKnots(knots)
 		}
-
 	}
 
 	// PrintTailPositions(tailPositions)
@@ -243,7 +242,6 @@ func Part2(filename string) int {
 }
 
 func main() {
-
 	testfile := "tests.txt"
 	testfile2 := "tests2.txt"
 	inputfile := "inputs.txt"
