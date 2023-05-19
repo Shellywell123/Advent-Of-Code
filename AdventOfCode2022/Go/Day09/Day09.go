@@ -37,28 +37,108 @@ func Parse(filename string) []map[string]string {
 	return data
 }
 
-func Catchup(headPosition coordinate, tailPosition coordinate, lastDirection string) coordinate {
+func Catchup(headPosition coordinate, tailPosition coordinate) coordinate {
+
 	newTailPosition := tailPosition
 
-	if math.Abs(float64(headPosition.x)-float64(tailPosition.x)) > 1 || math.Abs(float64(headPosition.y)-float64(tailPosition.y)) > 1 {
+	dx := float64(tailPosition.x - headPosition.x)
+	dy := float64(tailPosition.y - headPosition.y)
 
-		switch lastDirection {
-		case "U":
-			newTailPosition.x = headPosition.x
-			newTailPosition.y = headPosition.y + 1
-		case "D":
-			newTailPosition.x = headPosition.x
-			newTailPosition.y = headPosition.y - 1
-		case "L":
-			newTailPosition.x = headPosition.x + 1
-			newTailPosition.y = headPosition.y
-		case "R":
-			newTailPosition.x = headPosition.x - 1
-			newTailPosition.y = headPosition.y
-		}
+	theta := math.Atan2(dx, dy)
+
+	if math.Pow(dx, 2)+math.Pow(dy, 2) > 2 {
+		newTailPosition.x -= int(math.Round(1.4 * math.Sin(theta)))
+		newTailPosition.y -= int(math.Round(1.4 * math.Cos(theta)))
 	}
 
 	return newTailPosition
+}
+
+func PrintKnots(knots []knot) {
+	minX := 0
+	maxX := 0
+
+	minY := 0
+	maxY := 0
+
+	for _, knot := range knots {
+		if knot.head.x < minX {
+			minX = knot.head.x
+		}
+		if knot.head.x > maxX {
+			maxX = knot.head.x
+		}
+		if knot.head.y < minY {
+			minY = knot.head.y
+		}
+		if knot.head.y > maxY {
+			maxY = knot.head.y
+		}
+	}
+
+	canvas := [][]string{}
+	for y := minY; y <= maxY+1; y++ {
+		row := []string{}
+		for x := minX; x <= maxX+1; x++ {
+			row = append(row, ".")
+		}
+		canvas = append(canvas, row)
+	}
+
+	for k := 0; k < len(knots); k++ {
+		canvas[knots[k].head.y-minY][knots[k].head.x-minX] = strconv.Itoa(k)
+	}
+	canvas[-minY][-minX] = "s"
+
+	for row := range canvas {
+		fmt.Println(canvas[row])
+	}
+}
+
+func PrintTailPositions(tailPositions map[string]interface{}) {
+	minX := 0
+	maxX := 0
+
+	minY := 0
+	maxY := 0
+
+	for key := range tailPositions {
+		x, _ := strconv.Atoi(strings.Split(key, ",")[0])
+		y, _ := strconv.Atoi(strings.Split(key, ",")[1])
+
+		if x < minX {
+			minX = x
+		}
+		if x > maxX {
+			maxX = x
+		}
+		if y < minY {
+			minY = y
+		}
+		if y > maxY {
+			maxY = y
+		}
+	}
+
+	canvas := [][]string{}
+	for y := minY; y <= maxY+1; y++ {
+		row := []string{}
+		for x := minX; x <= maxX+1; x++ {
+			row = append(row, ".")
+		}
+		canvas = append(canvas, row)
+	}
+
+	for key := range tailPositions {
+		x, _ := strconv.Atoi(strings.Split(key, ",")[0])
+		y, _ := strconv.Atoi(strings.Split(key, ",")[1])
+
+		canvas[y-minY][x-minX] = "#"
+	}
+
+	for row := range canvas {
+		fmt.Println(canvas[row])
+	}
 }
 
 func Part1(filename string) int {
@@ -67,8 +147,7 @@ func Part1(filename string) int {
 
 	tailPositions := map[string]interface{}{}
 
-
-    // initialize head position as 0,0
+	// initialize head position as 0,0
 	currentHeadPosition := coordinate{0, 0}
 	currentTailPosition := currentHeadPosition
 
@@ -93,13 +172,13 @@ func Part1(filename string) int {
 			}
 
 			// move tail along
-			currentTailPosition = Catchup(currentHeadPosition, currentTailPosition, direction)
+			currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
 
 			// add tail position to map
 			tailPositions[fmt.Sprintf("%v,%v", currentTailPosition.x, currentTailPosition.y)] = ""
 		}
 	}
-
+	// PrintTailPositions(tailPositions)
 	return len(tailPositions)
 }
 
@@ -107,11 +186,13 @@ func Part2(filename string) int {
 
 	data := Parse(filename)
 
+	numOfKnots := 9
+
 	tailPositions := map[string]interface{}{}
 
 	// initialize knot positions as 0,0
 	knots := []knot{}
-	for i := 0; i < 10; i++ {
+	for i := 0; i < numOfKnots; i++ {
 		currentHeadPosition := coordinate{0, 0}
 		currentTailPosition := currentHeadPosition
 		knots = append(knots, knot{head: currentHeadPosition, tail: currentTailPosition})
@@ -121,9 +202,8 @@ func Part2(filename string) int {
 	for _, move := range data {
 
 		direction, magnitudeString := move["direction"], move["magnitude"]
+		// catchupDirection := direction
 		magnitude, _ := strconv.Atoi(magnitudeString)
-
-		fmt.Print(direction, " ", magnitude, "\n")
 
 		for i := 0; i < magnitude; i++ {
 
@@ -140,20 +220,25 @@ func Part2(filename string) int {
 			}
 
 			// move tails along
-			for k := 0; k < len(knots); k++ {
+			for k := 0; k < numOfKnots; k++ {
+
 				if k != 0 {
-					knots[k].tail = Catchup(knots[k-1].tail, knots[k].tail, direction)
-				} else {
-					knots[k].tail = Catchup(knots[k].head, knots[k].tail, direction)
+					knots[k].head = knots[k-1].tail
 				}
+				knots[k].tail = Catchup(knots[k].head, knots[k].tail)
+
 			}
 
 			// add end tail position to map
-			tailPositions[fmt.Sprintf("%v,%v", knots[len(knots)-1].tail.x, knots[len(knots)-1].tail.y)] = ""
+			tailPositions[fmt.Sprintf("%v,%v", knots[numOfKnots-1].tail.x, knots[numOfKnots-1].tail.y)] = ""
+
+			// PrintKnots(knots)
 		}
+
 	}
 
-	fmt.Print(tailPositions)
+	// PrintTailPositions(tailPositions)
+
 	return len(tailPositions)
 }
 
@@ -167,5 +252,5 @@ func main() {
 	fmt.Printf("Tests : Answer to Part 1 = %v\n", Part1(testfile))
 	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1(inputfile))
 	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2(testfile2))
-	// fmt.Printf("Inputs: Answer to Part 2 = %v\n", Part2(inputfile))
+	fmt.Printf("Inputs: Answer to Part 2 = %v\n", Part2(inputfile))
 }
