@@ -37,6 +37,22 @@ func Parse(filename string) []map[string]string {
 	return data
 }
 
+func MoveHead(headPosition coordinate, direction string) coordinate {
+
+	switch direction {
+	case "U":
+		headPosition.y--
+	case "D":
+		headPosition.y++
+	case "L":
+		headPosition.x--
+	case "R":
+		headPosition.x++
+	}
+
+	return headPosition
+}
+
 func Catchup(headPosition coordinate, tailPosition coordinate) coordinate {
 
 	newTailPosition := tailPosition
@@ -55,6 +71,7 @@ func Catchup(headPosition coordinate, tailPosition coordinate) coordinate {
 }
 
 func PrintKnots(knots []knot) {
+
 	minX := 0
 	maxX := 0
 
@@ -96,6 +113,7 @@ func PrintKnots(knots []knot) {
 }
 
 func PrintTailPositions(tailPositions map[string]interface{}) {
+
 	minX := 0
 	maxX := 0
 
@@ -160,16 +178,7 @@ func Part1(filename string) int {
 		for i := 0; i < magnitude; i++ {
 
 			// move head along
-			switch direction {
-			case "U":
-				currentHeadPosition.y--
-			case "D":
-				currentHeadPosition.y++
-			case "L":
-				currentHeadPosition.x--
-			case "R":
-				currentHeadPosition.x++
-			}
+			currentHeadPosition = MoveHead(currentHeadPosition, direction)
 
 			// move tail along
 			currentTailPosition = Catchup(currentHeadPosition, currentTailPosition)
@@ -208,25 +217,14 @@ func Part2(filename string) int {
 		for i := 0; i < magnitude; i++ {
 
 			// move head along
-			switch direction {
-			case "U":
-				knots[0].head.y--
-			case "D":
-				knots[0].head.y++
-			case "L":
-				knots[0].head.x--
-			case "R":
-				knots[0].head.x++
-			}
+			knots[0].head = MoveHead(knots[0].head, direction)
 
 			// move tails along
 			for k := 0; k < numOfKnots; k++ {
-
 				if k != 0 {
 					knots[k].head = knots[k-1].tail
 				}
 				knots[k].tail = Catchup(knots[k].head, knots[k].tail)
-
 			}
 
 			// add end tail position to map
@@ -237,11 +235,11 @@ func Part2(filename string) int {
 	}
 
 	// PrintTailPositions(tailPositions)
-
 	return len(tailPositions)
 }
 
 func main() {
+
 	testfile := "tests.txt"
 	testfile2 := "tests2.txt"
 	inputfile := "inputs.txt"
@@ -251,4 +249,5 @@ func main() {
 	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1(inputfile))
 	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2(testfile2))
 	fmt.Printf("Inputs: Answer to Part 2 = %v\n", Part2(inputfile))
+
 }
