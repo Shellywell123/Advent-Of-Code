@@ -29,6 +29,6 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
     <td><a href="https://github.com/Shellywell123/AdventOfCode/tree/main/AdventOfCode2022/Python">21/25</a></td>
     <td></td>
     <td><a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2022/C%23">03/25</a></td>
-    <td><a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2022/Go">10/25</a></td>
+    <td><a href="https://github.com/Shellywell123/Advent-Of-Code/tree/main/AdventOfCode2022/Go">11/25</a></td>
   </tr>
 </table>
