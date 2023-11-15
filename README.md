@@ -33,7 +33,6 @@ My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year,
   </tr>
 </table>
 
-|   |  Returned Value |
-|--| -----------------|
-| Version V2 |     
-<table>  <thead>  <tr>  <th>Z-value</th>  <th>06</th>  </tr>  </thead>  <tbody>  <tr>  <td>Protocol</td>  <td>04 05</td>  </tr>  <tr>  <td>Protocol Sub</td>  <td>02</td>  </tr>  <tr>  <td>Application</td>  <td>11</td>  </tr>  <tr>  <td>Application Sub</td>  <td>00</td>  </tr>  </tbody>  </table>              |
+|  Year |  Language | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 |
+|-------| ----------|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
+| 2020  | 
