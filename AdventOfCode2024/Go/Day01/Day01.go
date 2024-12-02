@@ -66,7 +66,7 @@ func Part2(filename string) int {
 }
 
 func main() {
-	fmt.Println("Advent-Of-Code 2023 - Day10")
+	fmt.Println("Advent-Of-Code 2024 - Day01")
 	fmt.Printf("Tests : Answer to Part 1 = %v\n", Part1("tests.txt"))
 	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1("inputs.txt"))
 	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2("tests.txt"))
