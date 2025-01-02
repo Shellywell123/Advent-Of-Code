@@ -1,5 +1,6 @@
 # Advent-Of-Code
-My personal solutions to [Advent-Of-Code](https://adventofcode.com/) every year, are used as a way to develop my programming skillset and practice different languages.
+My personal solutions to [Advent-Of-Code](https://adventofcode.com/) Every year I use AOC use to develop my programming skillset and practice different languages.
+I tend to get very busy from the 17th 🎅
 
 | Year                                  | Language  | %                                                                                          | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  | 14  | 15  | 16  | 17  | 18  | 19  | 20  | 21  | 22  | 23  | 24  | 25  |
 |---------------------------------------|-----------|--------------------------------------------------------------------------------------------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
