@@ -42,9 +42,6 @@ func Parse(filename string) ([][]int, []string) {
 		numbers = append(numbers, numbers_temp)
 
 	}
-	fmt.Println("lol")
-	fmt.Println(len(numbers[0]))
-	fmt.Println(len(operators)) // this should = 1000 not 591
 
 	for i, _ := range operators {
 		numbers_sorted = append(numbers_sorted, []int{})
@@ -58,12 +55,6 @@ func Parse(filename string) ([][]int, []string) {
 
 func Part1(filename string, debug bool) int {
 	numberss, operators := Parse(filename)
-
-	fmt.Println(len(numberss))
-	fmt.Println(len(operators))
-
-	fmt.Println(numberss)
-	fmt.Println(operators)
 
 	ans := 0
 	for i, numbers := range numberss {
@@ -106,10 +97,6 @@ func Part1(filename string, debug bool) int {
 	}
 	if debug {
 		fmt.Println("")
-	}
-
-	for _, n := range numberss {
-		fmt.Print(n[0], " ")
 	}
 	return ans
 }
@@ -142,7 +129,7 @@ func Parse2(filename string) ([][]int, []string) {
 	numbers_sorted := [][]int{}
 	for x := 0; x <= len(megaagrid[0]); x++ {
 		sep_found := false
-		if x == len(megaagrid[0]) { // make sure to grab last one fully 
+		if x == len(megaagrid[0]) {
 			sep_found = true
 		}
 		if sep_found == false && megaagrid[0][x] == " " {
@@ -158,7 +145,6 @@ func Parse2(filename string) ([][]int, []string) {
 				sep_found = true
 			}
 		}
-		// get number
 
 		if sep_found == false {
 			continue
@@ -175,8 +161,6 @@ func Parse2(filename string) ([][]int, []string) {
 		prev_sep = x
 
 		// read vertical nums for grid
-		fmt.Println("mini grid:")
-		fmt.Println(mini_grid)
 		numbers_sorted_mini := []int{}
 		for i := len(mini_grid[0]) - 1; i >= 0; i-- {
 			new_string_num := ""
@@ -195,12 +179,6 @@ func Parse2(filename string) ([][]int, []string) {
 
 func Part2(filename string, debug bool) int {
 	numberss, operators := Parse2(filename)
-
-	fmt.Println(len(numberss))
-	fmt.Println(len(operators))
-
-	fmt.Println(numberss)
-	fmt.Println(operators)
 
 	ans := 0
 	for i, numbers := range numberss {
@@ -244,17 +222,13 @@ func Part2(filename string, debug bool) int {
 	if debug {
 		fmt.Println("")
 	}
-
-	for _, n := range numberss {
-		fmt.Print(n, " ")
-	}
 	return ans
 }
 
 func main() {
 	fmt.Println("Advent-Of-Code 2025 - Day06")
 	fmt.Printf("Tests : Answer to Part 1 = %v\n", Part1("tests.txt", false))
-	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1("inputs.txt", false)) // 2862649984428023 = toohigh
-	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2("tests.txt", true))
+	fmt.Printf("Inputs: Answer to Part 1 = %v\n", Part1("inputs.txt", false))
+	fmt.Printf("Tests : Answer to Part 2 = %v\n", Part2("tests.txt", false))
 	fmt.Printf("Inputs: Answer to Part 2 = %v\n", Part2("inputs.txt", false))
 }
